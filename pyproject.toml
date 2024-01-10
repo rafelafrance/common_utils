@@ -1,0 +1,112 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "common_utils"
+version = "0.0.1"
+description = "Utilities used in several repositories"
+license = {file = "LICENSE"}
+authors = [{name="Raphael LaFrance", email="raphael.lafrance@gmail.com"}]
+requires-python = ">=3.11"
+dependencies = [
+    "ftfy",
+    "regex",
+    "tomlkit",
+]
+optional-dependencies.dev = [
+    "neovim",
+    "pre-commit",
+    "pre-commit-hooks",
+    "python-lsp-server[all]",
+    "ruff",
+]
+
+[tool.common_utils]
+base-dependencies = [
+    "ftfy",
+    "regex",
+    "tomlkit",
+]
+
+[tool.ruff]
+target-version = "py311"
+
+show-fixes = true
+
+select = [
+    "F",
+    "E",
+    "W",
+    "C90",
+    "I",
+    "N",
+    "D",
+    "UP",
+    "S",
+    "BLE",
+    "FBT",
+    "B",
+#    "A",
+    "COM",
+    "C4",
+    "T10",
+    "EM",
+    "EXE",
+    "FA",
+    "ISC",
+    "ICN",
+    "G",
+    "INP",
+    "PIE",
+    "T20",
+    "PYI",
+    "PT",
+    "Q",
+    "RSE",
+    "RET",
+    "SLF",
+    "SLOT",
+    "SIM",
+    "TID",
+    "TCH",
+    "INT",
+#    "ARG",
+    "PTH",
+    "TD",
+    "FIX",
+    "PD",
+    "PGH",
+    "PL",
+    "TRY",
+    "FLY",
+    "NPY",
+    "PERF",
+#    "FURB",
+#    "LOG",
+    "RUF",
+]
+
+ignore = [
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D107",
+    "D203",
+    "D212",
+    "N818",
+    "PD901",
+    "PLR0913",
+    "PLW2901",
+    "PLW0603",
+    "PT009",
+    "RET504",
+    "RUF001",
+    "SIM114",
+    "SIM117",
+    "SLF001",
+    "T201",
+]
