@@ -8,6 +8,9 @@ from urllib.request import urlopen
 import tomlkit
 
 PYPROJECT_TOML = Path() / "pyproject.toml"
+URL = (
+    "https://raw.githubusercontent.com/rafelafrance/common_utils/main/" "pyproject.toml"
+)
 
 
 @dataclass
@@ -22,30 +25,24 @@ def main():
     _args = parse_args()
     subtrees = get_subtrees()
 
+    base = urlopen(URL).read().decode("utf-8")  # noqa: S310
+    base = tomlkit.loads(base)
+
     with PYPROJECT_TOML.open() as f:
         doc = tomlkit.load(f)
 
     get_deps(subtrees)
     deps = merge_deps(doc, subtrees)
+    update_deps(doc, deps)
 
-    update_dependencies(doc, deps)
-    update_ruff(doc)
+    doc["optional-dependencies"]["dev"] = base["optional-dependencies"]["dev"]
+    doc["tool"]["ruff"] = base["tool"]["ruff"]
 
     with PYPROJECT_TOML.open("w") as f:
         tomlkit.dump(doc, f)
 
 
-def update_ruff(doc):
-    url = (
-        "https://raw.githubusercontent.com/rafelafrance/common_utils/main/"
-        "pyproject.toml"
-    )
-    settings = urlopen(url).read().decode("utf-8")  # noqa: S310
-    project = tomlkit.loads(settings)
-    doc["tool"]["ruff"] = project["tool"]["ruff"]
-
-
-def update_dependencies(doc, deps):
+def update_deps(doc, deps):
     doc["project"]["dependencies"] = tomlkit.array()
     for dep in sorted(deps):
         doc["project"]["dependencies"].add_line(dep)
@@ -53,7 +50,7 @@ def update_dependencies(doc, deps):
 
 
 def merge_deps(doc, subtrees: list[Subtree]) -> list[str]:
-    deps = {"tomlkit"}
+    deps = set()
     if (
         doc.get("tool")
         and doc["tool"].get("common_utils")
@@ -109,6 +106,7 @@ def parse_args():
 
             It finds the subtrees and downloads the pyproject.toml for each from github
             and builds a combined dependencies section from all of the subtree versions.
+            It also updates other sections of the TOML file.
             """,
         ),
     )

@@ -5,6 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "common_utils"
 version = "0.0.1"
+readme = "README.md"
 description = "Utilities used in several repositories"
 license = {file = "LICENSE"}
 authors = [{name="Raphael LaFrance", email="raphael.lafrance@gmail.com"}]
@@ -22,12 +23,8 @@ optional-dependencies.dev = [
     "ruff",
 ]
 
-[tool.common_utils]
-base-dependencies = [
-    "ftfy",
-    "regex",
-    "tomlkit",
-]
+[tool.setuptools]
+py-modules = []
 
 [tool.ruff]
 target-version = "py311"
