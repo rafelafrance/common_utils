@@ -25,8 +25,6 @@
 *.swp
 __pycache__
 .ipynb_checkpoints/
-*.egg-info/
-build/
 
 # Environment
 .venv/
@@ -49,3 +47,8 @@ experiments/
 # Notes
 papers/
 docs/
+
+# Build
+build/
+*.egg-info/
+dist/

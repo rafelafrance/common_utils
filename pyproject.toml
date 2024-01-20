@@ -13,15 +13,17 @@ requires-python = ">=3.11"
 dependencies = [
     "ftfy",
     "regex",
-    "tomlkit",
 ]
 optional-dependencies.dev = [
+    "build",
     "neovim",
     "pre-commit",
     "pre-commit-hooks",
     "python-lsp-server[all]",
     "ruff",
 ]
+
+[project.scripts]
 
 [tool.setuptools]
 py-modules = []
