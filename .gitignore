@@ -51,3 +51,4 @@ docs/
 # Build
 build/
 *.egg-info/
+dist/
