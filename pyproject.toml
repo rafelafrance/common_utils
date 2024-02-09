@@ -39,7 +39,7 @@ target-version = "py311"
 
 show-fixes = true
 
-select = [
+lint.select = [
     "F",
     "E",
     "W",
@@ -92,7 +92,7 @@ select = [
     "RUF",
 ]
 
-ignore = [
+lint.ignore = [
     "COM812",
     "D100",
     "D101",

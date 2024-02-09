@@ -5,7 +5,7 @@ import regex as re
 
 
 def shorten(text: str) -> str:
-    """Collapse whitespace in a string."""
+    """Collapse all whitespace in a string."""
     return " ".join(text.split())
 
 
@@ -16,6 +16,7 @@ def compress(text: str) -> str:
 
 
 def to_positive_float(value: Any) -> float | None:
+    """Convert a string to a float stripping bad characters from the string first."""
     if isinstance(value, str):
         value = re.sub(r"[^\d./]", "", value) if value else ""
     try:
@@ -25,6 +26,7 @@ def to_positive_float(value: Any) -> float | None:
 
 
 def to_positive_int(value: Any) -> int | None:
+    """Convert a string to an int stripping bad characters from the string first."""
     if isinstance(value, str):
         value = re.sub(r"[^\d./]", "", value) if value else ""
         value = re.sub(r"\.$", "", value)
