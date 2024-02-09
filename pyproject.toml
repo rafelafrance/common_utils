@@ -19,11 +19,12 @@ optional-dependencies.dev = [
     "neovim",
     "pre-commit",
     "pre-commit-hooks",
-    "python-lsp-server[all]",
     "ruff",
+    "ruff-lsp",
 ]
 
 [project.scripts]
+common-test = "util.common_test:main"
 
 [tool.setuptools]
 py-modules = []

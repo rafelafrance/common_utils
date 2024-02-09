@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 import tomllib
-from distutils.core import setup
 from pathlib import Path
 
-from setuptools import find_packages
+from setuptools import find_packages, setup
 
 
 def read_pyproject():
