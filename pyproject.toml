@@ -29,6 +29,11 @@ common-test = "util.common_test:main"
 [tool.setuptools]
 py-modules = []
 
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["util"]
+namespaces = false
+
 [tool.ruff]
 target-version = "py311"
 
