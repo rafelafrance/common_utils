@@ -56,7 +56,7 @@ def clean_text(
 
     text = compress(text)  # Space normalize
 
-    text = re.sub(r"\xc2\xad", "", text)  # Remove soft-hyphens
+    text = re.sub(r"\N{SHY}\s*", "", text)  # Remove soft-hyphens
 
     # Join hyphenated words when they are at the end of a line
     if eol_hyphens:
@@ -64,6 +64,8 @@ def clean_text(
 
     text = ftfy.fix_text(text)  # Handle common mojibake
 
-    text = re.sub(r"\p{Cc}+", " ", text)  # Remove control characters
+    # Remove control characters, but keep newlines
+    lines = [re.sub(r"\p{Cc}+", " ", ln) for ln in text.splitlines()]
+    text = "\n".join(ln for ln in lines if ln)
 
     return text
