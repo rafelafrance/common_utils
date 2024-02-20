@@ -40,6 +40,8 @@ def clean_text(
     text: str,
     trans: dict[int, str] | None = None,
     replace: dict[str, str] | None = None,
+    *,
+    eol_hyphens: bool = False,
 ) -> str:
     """Clean text before trait extraction."""
     text = text if text else ""
@@ -52,11 +54,16 @@ def clean_text(
         for old, new in replace.items():
             text = text.replace(old, new)
 
-    text = shorten(text)  # Space normalize
+    text = compress(text)  # Space normalize
 
     # Join hyphenated words when they are at the end of a line
-    text = re.sub(r"([a-z])-\s+([a-z])", r"\1\2", text, flags=re.IGNORECASE)
+    if eol_hyphens:
+        text = re.sub(r"([a-z])-\s+([a-z])", r"\1\2", text, flags=re.IGNORECASE)
 
     text = ftfy.fix_text(text)  # Handle common mojibake
 
-    return re.sub(r"\p{Cc}+", " ", text)  # Remove control characters
+    text = re.sub(r"\p{Cc}+", " ", text)  # Remove control characters
+
+    text = re.sub(r"\xc2\xad", "", text)  # Remove soft-hyphens
+
+    return text
