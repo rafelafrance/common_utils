@@ -56,6 +56,8 @@ def clean_text(
 
     text = compress(text)  # Space normalize
 
+    text = re.sub(r"\xc2\xad", "", text)  # Remove soft-hyphens
+
     # Join hyphenated words when they are at the end of a line
     if eol_hyphens:
         text = re.sub(r"([a-z])-\s+([a-z])", r"\1\2", text, flags=re.IGNORECASE)
@@ -63,7 +65,5 @@ def clean_text(
     text = ftfy.fix_text(text)  # Handle common mojibake
 
     text = re.sub(r"\p{Cc}+", " ", text)  # Remove control characters
-
-    text = re.sub(r"\xc2\xad", "", text)  # Remove soft-hyphens
 
     return text
