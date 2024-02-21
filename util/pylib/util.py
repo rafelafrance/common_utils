@@ -11,8 +11,9 @@ def shorten(text: str) -> str:
 
 def compress(text: str) -> str:
     """Collapse whitespace in a string but keep lines."""
-    text = [" ".join(ln.split()) for ln in text.splitlines()]
-    return "\n".join(ln for ln in text if ln)
+    lines = [" ".join(ln.split()) for ln in text.splitlines()]
+    string = "\n".join(ln for ln in lines if ln)
+    return string
 
 
 def to_positive_float(value: Any) -> float | None:
@@ -64,8 +65,7 @@ def clean_text(
 
     text = ftfy.fix_text(text)  # Handle common mojibake
 
-    # Remove control characters, but keep newlines
-    lines = [re.sub(r"\p{Cc}+", " ", ln) for ln in text.splitlines()]
-    text = "\n".join(ln for ln in lines if ln)
+    # Remove control characters
+    text = re.sub(r"\p{Cc}+", " ", text)
 
     return text

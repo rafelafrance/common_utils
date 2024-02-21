@@ -23,4 +23,4 @@ jobs:
         python -m pip install .
     - name: Test with unittest
       run: |
-        export MOCK_DATA=1; python -m unittest discover
+        python -m unittest discover

@@ -17,10 +17,12 @@ dependencies = [
 optional-dependencies.dev = [
     "build",
     "neovim",
+    "mypy",
     "pre-commit",
     "pre-commit-hooks",
     "ruff",
     "ruff-lsp",
+    "types-regex",
 ]
 
 [project.scripts]
